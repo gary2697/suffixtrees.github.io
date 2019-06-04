@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Business Frontpage - Start Bootstrap Template</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="css/business-frontpage.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+<!--       <a class="navbar-brand" href="#">Start Bootstrap</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button> -->
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="index.html">Home
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="algo.html">Algorithm</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="application.html">Application</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="reference.html">Reference</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Header -->
+  <header class="bg-primary py-5 mb-5">
+    <div class="container h-50">
+      <div class="row h-50 align-items-center">
+        <div class="col-md-12">
+          <h1 class="display-4 text-white mt-5 mb-2">Ukkonen's Algorithm</h1>
+<!--           <p class="lead mb-5 text-white-50">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non possimus ab labore provident mollitia. Id assumenda voluptate earum corporis facere quibusdam quisquam iste ipsa cumque unde nisi, totam quas ipsam.</p> -->
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Page Content -->
+  <div class="container">
+
+    <div class="row">
+      <div class="col-md-12 mb-5">
+        <h2>Introduction</h2>
+        <hr>
+        <p>A suffix tree is a data structure that contains all the substrings of a given text. It can be used to solve problems like finding the longest common substring and searching for patterns in DNA. </p>
+ 
+<!--         <a class="btn btn-primary btn-lg" href="#">Call to Action &raquo;</a>
+ -->      </div>
+<!--       <div class="col-md-4 mb-5">
+        <h2>Contact Us</h2>
+        <hr>
+        <address>
+          <strong>Start Bootstrap</strong>
+          <br>3481 Melrose Place
+          <br>Beverly Hills, CA 90210
+          <br>
+        </address>
+        <address>
+          <abbr title="Phone">P:</abbr>
+          (123) 456-7890
+          <br>
+          <abbr title="Email">E:</abbr>
+          <a href="mailto:#">name@example.com</a>
+        </address>
+      </div>
+    </div> -->
+    <!-- /.row -->
+        <div class="col-md-12 mb-5">
+        <h3>Definitions</h3>
+        <hr>
+        <p>The suffix tree for string S of length n is defined as a tree such that:</p>
+        <ul>
+          <li>The tree has exactly n leaves</li>
+          <li>Every internal node has at least two children </li>
+          <li> No two edges starting out at the same node can have string labels beginning with the same character</li>
+          <li>The string obtained by concatenating all the string labels on the path from the root to leaf generates suffix S[i...n] for i from 1 to n.</li>
+        </ul>
+
+ 
+<!--         <a class="btn btn-primary btn-lg" href="#">Call to Action &raquo;</a>
+ -->      </div>
+
+         <div class="col-md-12 mb-5">
+        <h3>Ukkonen's Algorithm</h3>
+        <hr>
+        <p>Ukkonen's algorithm is a linear time algorithm that utilizes edge label compression to achieve linear space. In order to build a suffix tree for a string S of length n using Ukkonen's algorithm in linear time and space, we will loop through the string once. A phase in the algorithm is defined as inserting suffix S[i+1] to the existing suffix tree. For i from 1 to n, we need to follow these three rules:</p>
+        <ol>
+          <li>Rule 1: For phase i+1, if S[j...i] ends at last character of leaf edge, then append S[i+1] to the end.</li>
+          <li>Rule 2: For phase i+1, if S[j..i] ends in the middle of the edge and S[j..i+1] does not overlap with one of the existing edges around the node, create a new edge with label S[i+1] </li>
+          <li> Rule 3: For phase i+1, if S[j..i] ends in the middle of the edge and S[j...i+1] overlaps with one of the existing edges around the node, do nothing.</li>
+
+        </ol>
+        <p>Instead of storing the actual strings in the suffix tree which can easily cost quadratic space, substrings are stored as a pair of indices that represents the start and the end in the original string, where the end index is stored as a global variable. For each iteration, we increment global end and update all the current leaves in O(1) time. Besides, such representation achieves linear space which is crucial for our application.
+    To make updates done in rule2 more efficient, for every node with label S[i][i+1..j] where S[i] is a single character and [i+1..j] is the substring of S(could be an empty string), we store a suffix link from such node to another node with with label S[i]. If S[i+1...j] is empty, then the suffix link is the root. By storing suffix links, we can traverse between nodes in O(1) time. </p>
+        <p>In addition, we also need to keep track of active point, active position,
+active node, active edge and active length. The definition of these variables are described below:</p>
+        <ul>
+          <li>Active point: Consists of active position, active node and active edge.</li>
+          <li>Active position: A point where next phase or next rule extension starts. Active position always starts from the root.</li>
+          <li>Active node: The node where active point starts</li>
+          <li>Active edge: The edge we use around the active node. Each edge is represented by its start index around the node.</li>
+          <li> Active length: How far we go in active edge</li>
+
+        </ul>
+        <p>The following rules are applied if the corresponding conditions are satisfied:</p>
+        <ol>
+          <li> If case = rule 3, increment active length by 1 if active length is less than the length of the edge</li>
+          <li> If case = rule 3 and active length gets greater than the length of the edge, change the active node to the next internal node, active edge is none, active length is 0 </li>
+          <li>If active length is 0, start from the root</li>
+          <li>If case = rule 2 and active node = root, increment active edge by one(pick the next edge around the root) and decrement active length by one.</li>
+          <li>If case = rule 2 and active node is not the root, change the active node to the node that suffix link is pointing to.</li>
+
+        </ol>
+        <p> By keeping track of the  variables and following the rules described above, we can construct a suffix tree in n iterations, with each iteration taking O(1) time. </p>
+
+ 
+<!--         <a class="btn btn-primary btn-lg" href="#">Call to Action &raquo;</a>
+ -->      </div>
+     <div class="row">
+      <div class="col-md-12 mb-5">
+        <h2>Implementation and Difficulties</h2>
+        <hr>
+        <h4>Implementation For Multiple Documents</h4>
+        <p>In order to process such a huge dataset, we decided to implement a more generalized suffix tree that worked for multiple documents by using different special characters as terminators for each read in the barcode. Since there are only fourty to sixty number of reads in each barcode, the special characters used in our implementation can be obtained from the ascii table. Basically, we concatenate each read in the barcode with terminators like !, @, # etc. Whenever we reach a special character, we then convert our implicit suffix tree into a complete suffix tree. By constructing the our suffix tree this way, we managed to save space by building one suffix tree instead of building fourty to sixty suffix trees for each barcode.  </p>
+        <h4> Difficulties</h4>
+      <ol>
+        <li> <p> Keeping track of the active point. 2 specific cases of Ukkonnen's algorithm proved to be especially difficult to work with. The first is the case of having an active node with no suffix link which requires that the active point be reset to the root traverse to the active point of the next remaining suffix to be inserted. The other case was for when skipping through the tree by using suffix links, the active position can be larger than the length of the active edge, so in that case the suffix of the suffix must be traversed much like the previous case from the active point to the correct active point down some path.</p></li>
+        <li><p>Debugging. In order to replicate the errors experienced in implementing the above two cases, Python's lack of a standard debugger required us to work through examples very slowly with large strings in order to recreate the errors in building the tree.</p></li>
+      </ol>
+<!--         <a class="btn btn-primary btn-lg" href="#">Call to Action &raquo;</a>
+ -->      </div>
+
+<!--     <div class="row">
+      <div class="col-md-4 mb-5">
+        <div class="card h-100">
+          <img class="card-img-top" src="http://placehold.it/300x200" alt="">
+          <div class="card-body">
+            <h4 class="card-title">Card title</h4>
+            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse necessitatibus neque sequi doloribus.</p>
+          </div>
+          <div class="card-footer">
+            <a href="#" class="btn btn-primary">Find Out More!</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-5">
+        <div class="card h-100">
+          <img class="card-img-top" src="http://placehold.it/300x200" alt="">
+          <div class="card-body">
+            <h4 class="card-title">Card title</h4>
+            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse necessitatibus neque sequi doloribus totam ut praesentium aut.</p>
+          </div>
+          <div class="card-footer">
+            <a href="#" class="btn btn-primary">Find Out More!</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-5">
+        <div class="card h-100">
+          <img class="card-img-top" src="http://placehold.it/300x200" alt="">
+          <div class="card-body">
+            <h4 class="card-title">Card title</h4>
+            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse necessitatibus neque.</p>
+          </div>
+          <div class="card-footer">
+            <a href="#" class="btn btn-primary">Find Out More!</a>
+          </div>
+        </div>
+      </div>
+    </div> -->
+    <!-- /.row -->
+
+  </div>
+  <!-- /.container -->
+
+  <!-- Footer -->
+<!--   <footer class="py-5 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Copyright &copy; Your Website 2019</p>
+    </div>
+     /.container -->
+ <!--  </footer> --> 
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>

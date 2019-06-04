@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Business Frontpage - Start Bootstrap Template</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="css/business-frontpage.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+<!--       <a class="navbar-brand" href="#">Start Bootstrap</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button> -->
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="index.html">Home
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="algo.html">Algorithm</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="application.html">Application</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="reference.html">Reference</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Header -->
+  <header class="bg-primary py-5 mb-5">
+    <div class="container h-50">
+      <div class="row h-50 align-items-center">
+        <div class="col-md-12">
+          <h1 class="display-4 text-white mt-5 mb-2">Suffix Trees</h1>
+<!--           <p class="lead mb-5 text-white-50">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non possimus ab labore provident mollitia. Id assumenda voluptate earum corporis facere quibusdam quisquam iste ipsa cumque unde nisi, totam quas ipsam.</p> -->
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Page Content -->
+  <div class="container">
+
+    <div class="row">
+      <div class="col-md-12 mb-5">
+        <h2>Abstract</h2>
+        <hr>
+        <p>In this project, we propose using Ukkonen's Algorithm for Linear Time construction of a suffix tree for the purpose of deconvolving Linked Reads. We used suffix trees to find overlaps in read sequences between barcodes, unsuccessfully. Somewhere in the abstraction to store multiple documents, we've run into a bug that we haven't been able to solve although, we do have a correct implementation for single strands of DNA. Running on smaller datasets has proved successful, although results are meaningless in application as smaller datasets are much less likely to create overlaps in suffix trees.</p>
+ 
+<!--         <a class="btn btn-primary btn-lg" href="#">Call to Action &raquo;</a>
+ -->      </div>
+<!--       <div class="col-md-4 mb-5">
+        <h2>Contact Us</h2>
+        <hr>
+        <address>
+          <strong>Start Bootstrap</strong>
+          <br>3481 Melrose Place
+          <br>Beverly Hills, CA 90210
+          <br>
+        </address>
+        <address>
+          <abbr title="Phone">P:</abbr>
+          (123) 456-7890
+          <br>
+          <abbr title="Email">E:</abbr>
+          <a href="mailto:#">name@example.com</a>
+        </address>
+      </div>
+    </div> -->
+    <!-- /.row -->
+        <div class="col-md-12 mb-5">
+        <h3>Introduction</h3>
+        <hr>
+        <p>In Danko et. al.'s previous publication, Minerva: An Alignment and Reference Free Approach to Deconvolve Linked-Reads for Metagenomics, an approximate solution to the problem of deconvolving linked-reads was put forward. Next generation sequencing technologies, or long-read sequencing technologies have become the primary sequencing technology in de novo assembly and in metagenomics but due to technological limitations, have high base error rates and substantially higher costs compared to short-read sequencing technologies. Long reads eliminate the issue faced with short reads which is the ability to sequence an entire fragment (much longer percentage of an organisms DNA) of DNA whereas short reads are sourced by shearing fragments of DNA into much smaller pieces often fewer than 100 base pairs long. Recently though, the innovation of Linked-reads, which have 3’ barcodes tagged to short-reads have revived interest in the viability of short-reads in metagenomics. By tagging these reads though, there is convolution in the ordering of data. Deconvolution is an algorithm based process to reverse the effects of this convolution and for Linked-reads, this means algorithmically reconstructing the fragment from which short-reads came from. Ideally, linked-reads easily solve this issue if there is a 1:1 mapping of barcode to fragment, although often times the ratio can reach 20:1 barcodes per fragment. For further information on Linked-read technologies we refer to Danko et. al (2018).</p>
+        <img src="">
+
+        <p>In our follow up to Minerva, we propose using Ukkonen's Algorithm for linear time and space construction of a suffix tree to improve the results of Minerva. Minerva currently uses Minimum Sparse Hashing to store k-mers, or discrete length "cut-ups" of short reads and in the overlap checking step, checks if k-mers from one barcode exist in another barcode. By using suffix trees to store all the reads in a barcode, we believe that there is a higher possibility of detecting overlaps, since k-mers are discrete whereas storing reads in a suffix trees makes the overlap phase essentially a subsequence searching problem. So essentially, given a barcode with a set of DNA reads, we construct the suffix tree of the combined reads in a barcode. We then proceed to search for k-mer overlaps in other barcodes to begin creating "enhanced" barcodes. Simply put, by finding overlaps between barcodes using suffix trees, we can begin clustering barcodes and reasonably assume that they originate from the same fragment.</p>
+ 
+<!--         <a class="btn btn-primary btn-lg" href="#">Call to Action &raquo;</a>
+ -->      </div>
+
+<!--     <div class="row">
+      <div class="col-md-4 mb-5">
+        <div class="card h-100">
+          <img class="card-img-top" src="http://placehold.it/300x200" alt="">
+          <div class="card-body">
+            <h4 class="card-title">Card title</h4>
+            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse necessitatibus neque sequi doloribus.</p>
+          </div>
+          <div class="card-footer">
+            <a href="#" class="btn btn-primary">Find Out More!</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-5">
+        <div class="card h-100">
+          <img class="card-img-top" src="http://placehold.it/300x200" alt="">
+          <div class="card-body">
+            <h4 class="card-title">Card title</h4>
+            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse necessitatibus neque sequi doloribus totam ut praesentium aut.</p>
+          </div>
+          <div class="card-footer">
+            <a href="#" class="btn btn-primary">Find Out More!</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-5">
+        <div class="card h-100">
+          <img class="card-img-top" src="http://placehold.it/300x200" alt="">
+          <div class="card-body">
+            <h4 class="card-title">Card title</h4>
+            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse necessitatibus neque.</p>
+          </div>
+          <div class="card-footer">
+            <a href="#" class="btn btn-primary">Find Out More!</a>
+          </div>
+        </div>
+      </div>
+    </div> -->
+    <!-- /.row -->
+
+  </div>
+  <!-- /.container -->
+
+  <!-- Footer -->
+<!--   <footer class="py-5 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Copyright &copy; Your Website 2019</p>
+    </div>
+     /.container -->
+<!--   </footer> -->
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>
